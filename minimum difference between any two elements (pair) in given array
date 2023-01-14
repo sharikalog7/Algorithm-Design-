@@ -1,127 +1,116 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2638
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww30040\viewh16280\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 #!/usr/bin/env python3\
-# -*- coding: utf-8 -*-\
-"""\
-Created on Sat Sep 8 16:51:55 2022\
-\
-@author: sharikaloganathan\
-"""\
-\
-\
-def mindiff(arr, n, curr_elements, num_selected_ele,\
-            soln, min_diff, Sum, curent_sum, curr_position):\
-     \
-    \
-    \
-    if (curr_position == n):\
-        return\
- \
-    # checks wheather  the numbers of elements\
-    # left lesser than the number of  elements needed\
-    \
-    if ((int(n / 2) - num_selected_ele) >\
-                          (n - curr_position)):\
-        return\
- \
-    # checking the element excluded\
-    mindiff(arr, n, curr_elements, num_selected_ele,\
-            soln, min_diff, Sum, curent_sum, curr_position + 1)\
- \
-    #  adding the element \
-    num_selected_ele += 1\
-    curent_sum = curent_sum + arr[curr_position]\
-    curr_elements[curr_position] = True\
- \
-    \
-    if (num_selected_ele == int(n / 2)):\
-         \
-        \
-        \
-        if (abs(int(Sum / 2) - curent_sum) < min_diff[0]):\
-            min_diff[0] = abs(int(Sum / 2) - curent_sum)\
-            for i in range(n):\
-                soln[i] = curr_elements[i]\
-    else:\
-         \
-        # checking the element included \
-        mindiff(arr, n, curr_elements, num_selected_ele,\
-                soln, min_diff, Sum, curent_sum, curr_position + 1)\
- \
-    # removes current element before returning\
-    \
-    curr_elements[curr_position] = False\
- \
-# Function to find the difference of the subsets\
-def subsetdiff(arr, n):\
-    s1=[]\
-    s2=[]\
-    \
-    # array that contains the\
-    # included and excluded elements\
-\
-    curr_elements = [None] * n\
- \
-    # The inclusion/exclusion array\
-    # for final solution\
-    soln = [None] * n\
- \
-    min_diff = [999999999999]\
- \
-    Sum = 0\
-    for i in range(n):\
-        Sum += arr[i]\
-        curr_elements[i] = soln[i] = False\
- \
-    # Find the solution using recursive\
-    # function TOWUtil()\
-    mindiff(arr, n, curr_elements, 0,\
-            soln, min_diff, Sum, 0, 0)\
-   \
-    # Print the solution\
-    print("\\n \{\{ ", end="")\
-    for i in range(n):\
-        if (soln[i] == True):\
-            \
-           # print(arr[i] , end=' ')\
-            \
-            s1.append(arr[i])\
-            #print('+',end='')\
-           \
-            print(" \{0\} ".format(arr[i]),end='')\
-    #print()\
-    print(" \}-",end='')\
-    print("\{",end='')\
-    for i in range(n):\
-        if (soln[i] == False):\
-            print(arr[i], end = " ")\
-            s2.append(arr[i])\
-            \
-    print("\}\}=",end=' ' )\
-    #print("\\n",sum(s2)-sum(s1),end=' ' )\
-    print("\{0\}-\{1\}=\{2\} \\n".format(sum(s2), sum(s1),(sum(s2)-sum(s1))))\
-  \
- \
-# Driver Code\
-if __name__ == '__main__':\
-    \
-    \
- \
-    array= [[1,2,3,4,5,6,7,8,9,10],[10,20,15,5,25,100]]\
-    for arr in array:\
-        n= len(arr)\
-\
-        subsetdiff(arr,n)\
-    #arr=[]\
-    #print(arr)\
-    \
-    \
-    \
-   \
-    \
-  }
+@author: sharikaloganathan
+"""
+
+
+def mindiff(arr, n, curr_elements, num_selected_ele,
+            soln, min_diff, Sum, curent_sum, curr_position):
+     
+    
+    
+    if (curr_position == n):
+        return
+ 
+    # checks wheather  the numbers of elements
+    # left lesser than the number of  elements needed
+    
+    if ((int(n / 2) - num_selected_ele) >
+                          (n - curr_position)):
+        return
+ 
+    # checking the element excluded
+    mindiff(arr, n, curr_elements, num_selected_ele,
+            soln, min_diff, Sum, curent_sum, curr_position + 1)
+ 
+    #  adding the element 
+    num_selected_ele += 1
+    curent_sum = curent_sum + arr[curr_position]
+    curr_elements[curr_position] = True
+ 
+    
+    if (num_selected_ele == int(n / 2)):
+         
+        
+        
+        if (abs(int(Sum / 2) - curent_sum) < min_diff[0]):
+            min_diff[0] = abs(int(Sum / 2) - curent_sum)
+            for i in range(n):
+                soln[i] = curr_elements[i]
+    else:
+         
+        # checking the element included 
+        mindiff(arr, n, curr_elements, num_selected_ele,
+                soln, min_diff, Sum, curent_sum, curr_position + 1)
+ 
+    # removes current element before returning
+    
+    curr_elements[curr_position] = False
+ 
+# Function to find the difference of the subsets
+def subsetdiff(arr, n):
+    s1=[]
+    s2=[]
+    
+    # array that contains the
+    # included and excluded elements
+
+    curr_elements = [None] * n
+ 
+    # The inclusion/exclusion array
+    # for final solution
+    soln = [None] * n
+ 
+    min_diff = [999999999999]
+ 
+    Sum = 0
+    for i in range(n):
+        Sum += arr[i]
+        curr_elements[i] = soln[i] = False
+ 
+    # Find the solution using recursive
+    # function TOWUtil()
+    mindiff(arr, n, curr_elements, 0,
+            soln, min_diff, Sum, 0, 0)
+   
+    # Print the solution
+    print("\n {{ ", end="")
+    for i in range(n):
+        if (soln[i] == True):
+            
+           # print(arr[i] , end=' ')
+            
+            s1.append(arr[i])
+            #print('+',end='')
+           
+            print(" {0} ".format(arr[i]),end='')
+    #print()
+    print(" }-",end='')
+    print("{",end='')
+    for i in range(n):
+        if (soln[i] == False):
+            print(arr[i], end = " ")
+            s2.append(arr[i])
+            
+    print("}}=",end=' ' )
+    #print("\n",sum(s2)-sum(s1),end=' ' )
+    print("{0}-{1}={2} \n".format(sum(s2), sum(s1),(sum(s2)-sum(s1))))
+  
+ 
+# Driver Code
+if __name__ == '__main__':
+    
+    
+ 
+    array= [[1,2,3,4,5,6,7,8,9,10],[10,20,15,5,25,100]]
+    for arr in array:
+        n= len(arr)
+
+        subsetdiff(arr,n)
+    #arr=[]
+    #print(arr)
+    
+    
+    
+   
+    
+  
